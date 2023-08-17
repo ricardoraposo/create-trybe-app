@@ -14,7 +14,7 @@ async function getUserInput(): Promise<string> {
     default: 'trybe-project',
   });
 
-  if (answer.length === 0 ) {
+  if (answer.length === 0) {
     return 'trybe-project'
   }
   return answer.toLowerCase().replace(/[,\/\\ ]/g, "");
@@ -71,8 +71,12 @@ async function addTemplate(projectName: string, fileName: string, ...destination
 
 async function addTemplateFiles(projectName: string) {
   const srcFiles = ["App.tsx", "App.css", "main.tsx"];
-  srcFiles.forEach((file) => addTemplate(projectName, file, projectName, "src" ))
+  srcFiles.forEach((file) => addTemplate(projectName, file, projectName, "src"))
   addTemplate(projectName, "trybe.webp", projectName, "src", "assets")
+
+  //TODO:I need to create a folder to add the vscode setting
+  await fs.mkdir(path.join(projectName, ".vscode"))
+  addTemplate(projectName, "settings.json", projectName, ".vscode")
 }
 
 async function main() {
