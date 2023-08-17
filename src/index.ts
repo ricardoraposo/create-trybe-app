@@ -42,6 +42,12 @@ async function correctLintCmd(pathToPkg: string) {
   await fs.writeFile(pathToPkg, formatted);
 }
 
+async function addTrybeLinter(pathToPkg: string) {
+  const data = await fs.readFile(pathToPkg, 'utf-8')
+  const formatted = data.replace(/^.*devDependencies.*$/m, '\t"devDependencies": {\n\t\t"@trybe/eslint-config-frontend": "*",');
+  await fs.writeFile(pathToPkg, formatted);
+};
+
 async function createEslintConfigFile(projectPath: string) {
   await fs.writeFile(`./${projectPath}/.eslintrc.json`, '{\n\t"extends": "@trybe/eslint-config-frontend/typescript"\n}');
   await fs.unlink(`./${projectPath}/.eslintrc.cjs`);
@@ -54,6 +60,7 @@ async function main() {
   const packageJsonPath = `./${projectName}/package.json`;
   await removeDependencies(packageJsonPath, dependencies);
   await correctLintCmd(packageJsonPath);
+  await addTrybeLinter(packageJsonPath);
   await createEslintConfigFile(projectName);
   console.log("Prontinho");
 }
