@@ -10,7 +10,7 @@ import dependencies from "./dependencies.js";
 
 async function getUserInput(): Promise<string> {
   const answer = await input({
-    message: 'Enter your name >',
+    message: 'Enter your project name >',
     default: 'trybe-project',
   });
 
