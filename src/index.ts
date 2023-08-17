@@ -20,7 +20,7 @@ async function getUserInput(): Promise<string> {
 async function createViteProject(projectName: string) {
   const args = [
     "create", "vite@latest", projectName,
-    "--", "--template", "react-ts"
+    "--", "--template", "react-swc-ts"
   ];
 
   spawnSync("npm", args, { stdio: 'inherit' })
