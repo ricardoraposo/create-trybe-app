@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import trybeLogo from './assets/logo_trybe.webp'
+import trybeLogo from './assets/logo.webp'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -30,7 +30,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Click on the Vite, React or Trybe logos to learn more
       </p>
       <p className="read-the-docs">
         npx create-trybe-app was created by

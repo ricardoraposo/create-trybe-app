@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from 'url';
 import { spawnSync } from "child_process";
 import input from '@inquirer/input';
 import dependencies from "./dependencies.js";
@@ -53,15 +55,39 @@ async function createEslintConfigFile(projectPath: string) {
   await fs.unlink(`./${projectPath}/.eslintrc.cjs`);
 }
 
-async function main() {
-  const projectName = await getUserInput();
-  await createViteProject(projectName);
+async function addTemplateFiles(projectName: string) {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const destinationPath = `./${projectName}/src/`;
 
-  const packageJsonPath = `./${projectName}/package.json`;
-  await removeDependencies(packageJsonPath, dependencies);
-  await correctLintCmd(packageJsonPath);
-  await addTrybeLinter(packageJsonPath);
-  await createEslintConfigFile(projectName);
+  const appTsxPath = path.join(__dirname, "..", "templates", "App.tsx");
+  const appCssPath = path.join(__dirname, "..", "templates", "App.css");
+  const logoPath = path.join(__dirname, "..", "templates", "assets", "logo.webp");
+
+  const tsxData = await fs.readFile(appTsxPath);
+  const cssData = await fs.readFile(appCssPath);
+  const logoData = await fs.readFile(logoPath);
+
+  await fs.writeFile(destinationPath + "App.tsx", tsxData);
+  await fs.writeFile(destinationPath + "App.css", cssData);
+  await fs.writeFile(destinationPath + "assets/logo.webp", logoData);
+}
+
+async function main() {
+  try {
+    const projectName = await getUserInput();
+    await createViteProject(projectName);
+
+    const packageJsonPath = `./${projectName}/package.json`;
+    await removeDependencies(packageJsonPath, dependencies);
+    await correctLintCmd(packageJsonPath);
+    await addTrybeLinter(packageJsonPath);
+    await createEslintConfigFile(projectName);
+
+    await addTemplateFiles(projectName);
+  } catch (err) {
+    console.error(err);
+  }
   console.log("Prontinho");
 }
 
