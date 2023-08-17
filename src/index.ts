@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import fs from "fs/promises";
-import path from "path";
+import fs from 'fs/promises';
+import path from 'path';
 import { fileURLToPath } from 'url';
-import { spawnSync } from "child_process";
+import { spawnSync } from 'child_process';
 import input from '@inquirer/input';
-import dependencies from "./dependencies.js";
+import dependencies from './dependencies.js';
 
 
 async function getUserInput(): Promise<string> {
@@ -14,7 +14,10 @@ async function getUserInput(): Promise<string> {
     default: 'trybe-project',
   });
 
-  return answer.toLowerCase().replace(/\s/g, "");
+  if (answer.length === 0 ) {
+    return 'trybe-project'
+  }
+  return answer.toLowerCase().replace(/[,\/\\ ]/g, "");
 };
 
 async function createViteProject(projectName: string) {
@@ -38,9 +41,10 @@ async function removeDependencies(pathToPkg: string, dependencyList: RegExp[]) {
   await fs.writeFile(pathToPkg, updatedContent);
 };
 
-async function correctLintCmd(pathToPkg: string) {
+async function correctScripts(pathToPkg: string) {
   const data = await fs.readFile(pathToPkg, 'utf-8')
-  const formatted = data.replace(/^.*"lint".*$/m, '\t\t"lint": "eslint -c .eslintrc.json . --ext .js,.jsx,.ts,.tsx",');
+  let formatted = data.replace(/^.*"lint".*$/m, '\t\t"lint": "eslint -c .eslintrc.json . --ext .js,.jsx,.ts,.tsx",');
+  formatted = formatted.replace(/^.*"dev".*$/m, '\t\t"dev": "vite --open",');
   await fs.writeFile(pathToPkg, formatted);
 }
 
@@ -55,22 +59,20 @@ async function createEslintConfigFile(projectPath: string) {
   await fs.unlink(`./${projectPath}/.eslintrc.cjs`);
 }
 
-async function addTemplateFiles(projectName: string) {
+async function addTemplate(projectName: string, fileName: string, ...destinationPath: string[]) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const destinationPath = `./${projectName}/src/`;
 
-  const appTsxPath = path.join(__dirname, "..", "templates", "App.tsx");
-  const appCssPath = path.join(__dirname, "..", "templates", "App.css");
-  const logoPath = path.join(__dirname, "..", "templates", "assets", "trybe.webp");
+  const filePath = path.join(__dirname, "..", "templates", fileName);
+  const fileData = await fs.readFile(filePath);
 
-  const tsxData = await fs.readFile(appTsxPath);
-  const cssData = await fs.readFile(appCssPath);
-  const logoData = await fs.readFile(logoPath);
+  await fs.writeFile(path.join(...destinationPath, fileName), fileData);
+}
 
-  await fs.writeFile(destinationPath + "App.tsx", tsxData);
-  await fs.writeFile(destinationPath + "App.css", cssData);
-  await fs.writeFile(destinationPath + "assets/trybe.webp", logoData);
+async function addTemplateFiles(projectName: string) {
+  const srcFiles = ["App.tsx", "App.css", "main.tsx"];
+  srcFiles.forEach((file) => addTemplate(projectName, file, projectName, "src" ))
+  addTemplate(projectName, "trybe.webp", projectName, "src", "assets")
 }
 
 async function main() {
@@ -80,7 +82,7 @@ async function main() {
 
     await createViteProject(projectName);
     await removeDependencies(packageJsonPath, dependencies);
-    await correctLintCmd(packageJsonPath);
+    await correctScripts(packageJsonPath);
     await addTrybeLinter(packageJsonPath);
     await createEslintConfigFile(projectName);
     await addTemplateFiles(projectName);
