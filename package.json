@@ -2,15 +2,19 @@
   "name": "create-trybe-app",
   "version": "0.0.1",
   "description": "Create package for students at Trybe",
-  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ricardoraposo/create-trybe-app.git"
+  },
+  "main": "./src/index.ts",
   "bin": "./dist/index.js",
   "type": "module",
   "scripts": {
     "start": "tsc && node ./dist/index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Ricardo Raposo",
+  "license": "MIT",
   "dependencies": {
     "@inquirer/input": "^1.2.7"
   },

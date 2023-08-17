@@ -56,13 +56,11 @@ async function createEslintConfigFile(projectPath: string) {
 }
 
 async function addTemplateFiles(projectName: string) {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
   const destinationPath = `./${projectName}/src/`;
 
   const appTsxPath = path.join(__dirname, "..", "templates", "App.tsx");
   const appCssPath = path.join(__dirname, "..", "templates", "App.css");
-  const logoPath = path.join(__dirname, "..", "templates", "assets", "logo.webp");
+  const logoPath = path.join(__dirname, "..", "templates", "assets", "trybe.webp");
 
   const tsxData = await fs.readFile(appTsxPath);
   const cssData = await fs.readFile(appCssPath);
@@ -76,19 +74,17 @@ async function addTemplateFiles(projectName: string) {
 async function main() {
   try {
     const projectName = await getUserInput();
-    await createViteProject(projectName);
-
     const packageJsonPath = `./${projectName}/package.json`;
+
+    await createViteProject(projectName);
     await removeDependencies(packageJsonPath, dependencies);
     await correctLintCmd(packageJsonPath);
     await addTrybeLinter(packageJsonPath);
     await createEslintConfigFile(projectName);
-
     await addTemplateFiles(projectName);
   } catch (err) {
     console.error(err);
-  }
-  console.log("Prontinho");
+  } 
 }
 
 main();
