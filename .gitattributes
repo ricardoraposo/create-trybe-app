@@ -1,1 +1,1 @@
-src/**/*.js linguist-language=TypeScript
+src/**/*.ts linguist-language=TypeScript
