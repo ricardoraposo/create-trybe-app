@@ -14,7 +14,7 @@ async function getUserInput(): Promise<string> {
     default: 'trybe-project',
   });
 
-  if (answer.length === 0) {
+  if (answer.trim().length === 0) {
     return 'trybe-project'
   }
   return answer.toLowerCase().replace(/[,\/\\ ]/g, "");
