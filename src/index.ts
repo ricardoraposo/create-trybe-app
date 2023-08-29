@@ -5,7 +5,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 import input from '@inquirer/input';
+import confirm from '@inquirer/confirm';
 import dependencies from './dependencies.js';
+import { clear } from 'console';
 
 
 async function getUserInput(): Promise<string> {
@@ -48,7 +50,13 @@ async function correctScripts(pathToPkg: string) {
   await fs.writeFile(pathToPkg, formatted);
 }
 
-async function addTrybeLinter(pathToPkg: string) {
+async function addPackages(pathToPkg: string, addRouter: boolean) {
+  if (addRouter) {
+    const data = await fs.readFile(pathToPkg, 'utf-8')
+    let formatted = data.replace(/^.*devDependencies.*$/m, '\t"devDependencies": {\n\t\t"@types/react-router-dom": "*",');
+    formatted = data.replace(/^.*dependencies.*$/m, '\t"dependencies": {\n\t\t"react-router-dom": "*",');
+    await fs.writeFile(pathToPkg, formatted);
+  }
   const data = await fs.readFile(pathToPkg, 'utf-8')
   const formatted = data.replace(/^.*devDependencies.*$/m, '\t"devDependencies": {\n\t\t"@trybe/eslint-config-frontend": "*",');
   await fs.writeFile(pathToPkg, formatted);
@@ -59,37 +67,43 @@ async function createEslintConfigFile(projectPath: string) {
   await fs.unlink(`./${projectPath}/.eslintrc.cjs`);
 }
 
-async function addTemplate(projectName: string, fileName: string, ...destinationPath: string[]) {
+async function addTemplate(originPath: string[], ...destinationPath: string[]) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-  const filePath = path.join(__dirname, "..", "templates", fileName);
+  const filePath = path.join(__dirname, "..", ...originPath);
   const fileData = await fs.readFile(filePath);
 
-  await fs.writeFile(path.join(...destinationPath, fileName), fileData);
+  await fs.writeFile(path.join(...destinationPath, originPath.at(-1) as string), fileData);
 }
 
-async function addTemplateFiles(projectName: string) {
-  const srcFiles = ["App.tsx", "App.css", "main.tsx"];
-  srcFiles.forEach((file) => addTemplate(projectName, file, projectName, "src"))
-  addTemplate(projectName, "trybe.webp", projectName, "src", "assets")
+async function addTemplateFiles(projectName: string, getRouter: boolean) {
+  const srcFiles = ["App.tsx", "App.css"];
+  srcFiles.forEach((file) => addTemplate(["templates", file], projectName, "src"))
+  addTemplate(["templates", "trybe.svg"], projectName, "src", "assets")
 
-  //TODO:I need to create a folder to add the vscode setting
   await fs.mkdir(path.join(projectName, ".vscode"))
-  addTemplate(projectName, "settings.json", projectName, ".vscode")
+  addTemplate(["templates", "settings.json"], projectName, ".vscode")
+
+  if (getRouter) {
+    addTemplate(["templates", "extra", "main.tsx"], projectName, "src")
+  } else {
+    addTemplate(["templates", "main.tsx"], projectName, "src")
+  }
 }
 
 async function main() {
   try {
     const projectName = await getUserInput();
+    const getRouter = await confirm({ message: "Deseja instalar o react-router ?" });
     const packageJsonPath = `./${projectName}/package.json`;
 
     await createViteProject(projectName);
     await removeDependencies(packageJsonPath, dependencies);
     await correctScripts(packageJsonPath);
-    await addTrybeLinter(packageJsonPath);
+    await addPackages(packageJsonPath, getRouter);
     await createEslintConfigFile(projectName);
-    await addTemplateFiles(projectName);
+    await addTemplateFiles(projectName, getRouter);
     console.log("Prontinho");
   } catch (err) {
     console.error(err);

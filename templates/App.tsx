@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import trybeLogo from './assets/trybe.webp';
+import trybeLogo from './assets/trybe.svg';
 import reactLogo from './assets/react.svg';
 import viteLogo from '../public/vite.svg';
 import './App.css';
