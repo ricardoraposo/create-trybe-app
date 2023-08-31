@@ -7,7 +7,6 @@ import { spawnSync } from 'child_process';
 import input from '@inquirer/input';
 import confirm from '@inquirer/confirm';
 import dependencies from './dependencies.js';
-import { clear } from 'console';
 
 
 async function getUserInput(): Promise<string> {
@@ -67,7 +66,7 @@ async function createEslintConfigFile(projectPath: string) {
   await fs.unlink(`./${projectPath}/.eslintrc.cjs`);
 }
 
-async function addTemplate(originPath: string[], ...destinationPath: string[]) {
+async function addTemplate(originPath: string[], destinationPath: string[]) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
@@ -79,16 +78,16 @@ async function addTemplate(originPath: string[], ...destinationPath: string[]) {
 
 async function addTemplateFiles(projectName: string, getRouter: boolean) {
   const srcFiles = ["App.tsx", "App.css"];
-  srcFiles.forEach((file) => addTemplate(["templates", file], projectName, "src"))
-  addTemplate(["templates", "trybe.svg"], projectName, "src", "assets")
+  srcFiles.forEach((file) => addTemplate(["templates", file], [projectName, "src"]))
+  addTemplate(["templates", "trybe.svg"], [projectName, "src", "assets"])
 
   await fs.mkdir(path.join(projectName, ".vscode"))
-  addTemplate(["templates", "settings.json"], projectName, ".vscode")
+  addTemplate(["templates", "settings.json"], [projectName, ".vscode"])
 
   if (getRouter) {
-    addTemplate(["templates", "extra", "main.tsx"], projectName, "src")
+    addTemplate(["templates", "extra", "main.tsx"], [projectName, "src"])
   } else {
-    addTemplate(["templates", "main.tsx"], projectName, "src")
+    addTemplate(["templates", "main.tsx"], [projectName, "src"])
   }
 }
 
