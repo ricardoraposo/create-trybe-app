@@ -15,9 +15,11 @@
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
+  animation: logo-spin 3s linear infinite;
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 .logo.trybe:hover {
+  animation: logo-spin 3s linear infinite;
   filter: drop-shadow(0 0 2em #78d691aa);
 }
 

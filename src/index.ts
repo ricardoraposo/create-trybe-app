@@ -85,7 +85,7 @@ async function addTemplateFiles(projectName: string, getRouter: boolean) {
   addTemplate(["templates", "settings.json"], [projectName, ".vscode"])
 
   if (getRouter) {
-    addTemplate(["templates", "extra", "main.tsx"], [projectName, "src"])
+    addTemplate(["templates", "extra", "react-router", "main.tsx"], [projectName, "src"])
   } else {
     addTemplate(["templates", "main.tsx"], [projectName, "src"])
   }
