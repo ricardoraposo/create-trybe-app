@@ -1,6 +1,6 @@
 {
   "name": "create-trybe-app",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Create package for students at Trybe",
   "repository": {
     "type": "git",
@@ -14,7 +14,16 @@
     "test": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project",
     "test:router": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project --router"
   },
-  "keywords": [],
+  "keywords": [
+    "trybe",
+    "tailwind",
+    "create-trybe-app",
+    "init.tips",
+    "trybe-stack",
+    "react",
+    "react-router",
+    "typescript"
+  ],
   "author": "Ricardo Raposo",
   "license": "MIT",
   "devDependencies": {
