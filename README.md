@@ -5,6 +5,10 @@
   </picture>
 </div>
 
+<br/>
+<br/>
+<br/>
+
 Create trybe app é uma ferramenta CLI interativa, que permite ao estudante iniciar um projeto
 utilizando da stack de tecnologias que são aplicadas na Trybe, de forma rápida, eficaz e segura.
 
