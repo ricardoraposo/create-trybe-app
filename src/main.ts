@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
-import fs from 'fs';
-import { input } from '@inquirer/prompts';
 import { Command } from 'commander';
-import { logger } from './utils/logger.js';
+import { logger, successMessageNoNpmI } from './utils/logger.js';
 import { baseTemplatePath, reactRouterTemplatePath } from './consts.js';
-import { addTemplate } from './helpers/fsFunctions.js';
+import { addTemplate, createDir } from './helpers/fsFunctions.js';
+import { promptProjectName, promptRouter } from './utils/prompts.js';
 
 const program = new Command().name('create-trybe-app');
 
@@ -15,18 +14,18 @@ program
   .parse(process.argv);
 
 try {
-  const userInput = program.args[0] ??
-    await input({
-      message: 'Enter your project name >',
-      default: 'trybe-project'
-    });
+  const userInput = program.args[0] ?? await promptProjectName();
 
   const opts = program.opts();
+  const router = opts.router || await promptRouter();
+
   const projectName = userInput.toLowerCase().replace(/[,/\\ ]/g, '');
-  fs.mkdirSync(projectName);
+  createDir(projectName);
 
   addTemplate(baseTemplatePath, projectName);
-  if (opts.router) addTemplate(reactRouterTemplatePath, projectName);
+  if (router) addTemplate(reactRouterTemplatePath, projectName);
+
+  successMessageNoNpmI(projectName);
 } catch (e) {
   logger.error(e.message);
 }

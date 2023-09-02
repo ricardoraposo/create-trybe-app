@@ -15,3 +15,7 @@ export function addTemplate (basePath: string, finalPath: string): void {
     }
   }
 }
+
+export function createDir (projectName: string): void {
+  fs.mkdirSync(projectName);
+}
