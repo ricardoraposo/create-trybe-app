@@ -1,7 +1,8 @@
 import { input, confirm, select } from '@inquirer/prompts';
 import { logger } from './logger.js';
+import { addGit, runNpmInstall } from '../helpers/fsFunctions.js';
 
-export async function promptProjectName (): Promise<string> {
+export async function promptProjectName(): Promise<string> {
   const projectName = await input({
     message: 'Enter your project name >',
     default: 'trybe-project'
@@ -9,34 +10,47 @@ export async function promptProjectName (): Promise<string> {
   return projectName;
 }
 
-export async function promptRouter (): Promise<boolean> {
+export async function promptRouter(): Promise<boolean> {
   const userInput = await confirm({ message: 'Gostaria de adicionar o react-router ?' });
   if (userInput) {
-    logger.info('Muito bem, adicionando react-router');
+    logger.info('Muito bem, adicionando react-router!');
   } else {
     logger.info('Ok, quem sabe na próxima...');
   }
   return userInput;
 }
 
-export async function promptLanguage (): Promise<void> {
+export async function promptLanguage(): Promise<void> {
   const userInput = await select({
     message: 'Qual linguagem gostaria de usar ?',
     choices: [
-      {
-        name: 'Typescript',
-        value: 'ts'
-      },
-      {
-        name: 'Javascript',
-        value: 'js'
-      }
+      { name: 'Typescript', value: 'ts' },
+      { name: 'Javascript', value: 'js' }
     ]
   });
-
   if (userInput === 'ts') {
-    logger.info('Bela escolha, usaremos Typescript');
+    logger.info('Bela escolha, usaremos Typescript!!!');
   } else {
-    logger.info('Escolheu errado, vamos utilizar Typescript');
+    logger.info('Escolha errado, vamos utilizar Typescript...');
   }
 }
+
+export async function promptGit(projectName: string): Promise<void> {
+  const userInput = await confirm({ message: 'Gostaria de iniciar um repositório git ?' });
+  if (userInput) {
+    addGit(projectName);
+    logger.success('Git iniciado!');
+  } else {
+    logger.info('Tudo bem, você pode iniciar mais tarde.');
+  }
+};
+
+export async function promptNpmInstall(projectName: string): Promise<void> {
+  const userInput = await confirm({ message: 'Gostaria de instalar as dependências (npm install) ?' });
+  if (userInput) {
+    runNpmInstall(projectName);
+    logger.success('\nDependências instaladas!');
+  } else {
+    logger.info('Tudo bem, você pode instalar mais tarde.');
+  }
+};

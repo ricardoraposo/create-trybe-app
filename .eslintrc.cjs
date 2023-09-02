@@ -6,6 +6,7 @@ module.exports = {
       rules: {
         "@typescript-eslint/strict-boolean-expressions": 0,
         "@typescript-eslint/naming-convention": 0,
+        "@typescript-eslint/space-before-function-paren": 0,
         "@typescript-eslint/semi": ['error', 'always'],
       }
     }
