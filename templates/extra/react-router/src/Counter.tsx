@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Counter.css';
 
 function Counter() {
   const [count, setCount] = useState(0);
@@ -11,7 +12,7 @@ function Counter() {
         {' '}
         {count}
       </button>
-      <Link to="/">Go back</Link>
+      <Link className="link" to="/">Go back</Link>
     </div>
   );
 }
