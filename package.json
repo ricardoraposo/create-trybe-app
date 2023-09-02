@@ -10,6 +10,7 @@
   "bin": "./dist/main.js",
   "type": "module",
   "scripts": {
+    "build": "tsc",
     "start": "tsc && node ./dist/main.js",
     "test": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project",
     "test:router": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project --router"
