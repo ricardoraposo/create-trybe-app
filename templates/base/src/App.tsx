@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import trybeLogo from './assets/trybe.svg';
 import reactLogo from './assets/react.svg';
+import trybeLogo from '../public/trybe.svg';
 import viteLogo from '../public/vite.svg';
 import './App.css';
 
