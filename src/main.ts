@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { logger, successMessageNoNpmI } from './utils/logger.js';
+import { logger, successMessageNoNpmI, welcomeMessage } from './utils/logger.js';
 import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
-import { promptGit, promptLanguage, promptNpmInstall, promptProjectName, promptRouter, promptSelection } from './utils/prompts.js';
+import { promptGit, promptLanguage, promptNpmInstall, promptProjectName, promptSelection } from './utils/prompts.js';
 import { BASE_TEMPLATE_PATH, REACT_ROUTER_TEMPLATE_PATH, RTL_TEMPLATE_PATH } from './consts.js';
 import { addRTLDependencies } from './utils/dependencies.js';
 
@@ -23,6 +23,8 @@ program
 
 async function main(): Promise<void> {
   try {
+    welcomeMessage();
+
     const userInput = program.args[0] ?? await promptProjectName();
     const projectName = userInput.toLowerCase().replace(/[,/\\ ]/g, '');
     createDir(projectName);
