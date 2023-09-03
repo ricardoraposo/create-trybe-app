@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import fs from 'fs-extra';
+import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
 import { logger, successMessageNoNpmI, welcomeMessage } from './utils/logger.js';
