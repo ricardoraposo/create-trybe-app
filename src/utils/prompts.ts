@@ -1,12 +1,14 @@
-import { input, confirm, select } from '@inquirer/prompts';
+import { input, confirm, select, checkbox } from '@inquirer/prompts';
 import { logger } from './logger.js';
 import { addGit, runNpmInstall } from '../helpers/fsFunctions.js';
 
 export async function promptProjectName(): Promise<string> {
   const projectName = await input({
     message: 'Enter your project name >',
-    default: 'trybe-project'
+    default: 'trybe-app'
   });
+
+  if (projectName.trim().length === 0) return 'trybe-app';
   return projectName;
 }
 
@@ -54,3 +56,14 @@ export async function promptNpmInstall(projectName: string): Promise<void> {
     logger.info('Tudo bem, você pode instalar mais tarde.');
   }
 };
+
+export async function promptSelection(): Promise<string[]> {
+  const userSelection = await checkbox({
+    message: 'Quais pacotes adicionar ?',
+    choices: [
+      { name: 'React Router', value: 'router' },
+      { name: 'React Testing Library', value: 'vitest' }
+    ]
+  });
+  return userSelection;
+}

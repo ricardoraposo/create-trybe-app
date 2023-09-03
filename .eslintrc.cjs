@@ -7,6 +7,7 @@ module.exports = {
         "@typescript-eslint/strict-boolean-expressions": 0,
         "@typescript-eslint/naming-convention": 0,
         "@typescript-eslint/space-before-function-paren": 0,
+        "@typescript-eslint/no-floating-promises": 0,
         "@typescript-eslint/semi": ['error', 'always'],
       }
     }

@@ -3,8 +3,9 @@
 import { Command } from 'commander';
 import { logger, successMessageNoNpmI } from './utils/logger.js';
 import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
-import { promptGit, promptLanguage, promptNpmInstall, promptProjectName, promptRouter } from './utils/prompts.js';
-import { BASE_TEMPLATE_PATH, REACT_ROUTER_TEMPLATE_PATH } from './consts.js';
+import { promptGit, promptLanguage, promptNpmInstall, promptProjectName, promptRouter, promptSelection } from './utils/prompts.js';
+import { BASE_TEMPLATE_PATH, REACT_ROUTER_TEMPLATE_PATH, RTL_TEMPLATE_PATH } from './consts.js';
+import { addRTLDependencies } from './utils/dependencies.js';
 
 const program = new Command().name('create-trybe-app');
 
@@ -15,7 +16,6 @@ program
 
 program
   .argument('[dir]', 'O nome da aplicação e da pasta que será criada')
-  .option('--router', 'Explicitamente diz à CLI para iniciar a aplicação utilizando o react-router', false)
   .option('-ts,--typescript', 'Explicitamente diz à CLI que typescript será utilizado para o desenvolvimento', false)
   .option('--git', 'Diz à CLI para iniciar a aplicação como repositório git', false)
   .option('--nogit', 'Diz à CLI para não iniciar um repositório git', false)
@@ -30,10 +30,18 @@ async function main(): Promise<void> {
     const opts = program.opts();
 
     if (!opts.typescript) await promptLanguage();
-    const router = opts.router || await promptRouter();
+    const selection = await promptSelection();
+
+    const router = selection.includes('router');
+    const rtl = selection.includes('vitest');
 
     addTemplate(BASE_TEMPLATE_PATH, projectName);
+
     if (router) addTemplate(REACT_ROUTER_TEMPLATE_PATH, projectName);
+    if (rtl) {
+      addRTLDependencies(projectName);
+      addTemplate(RTL_TEMPLATE_PATH, projectName);
+    }
 
     if (opts.git) addGit(projectName);
     if (!opts.nogit && !opts.git) await promptGit(projectName);
