@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import fs from 'fs-extra';
+import path from 'path';
 import { Command } from 'commander';
 import { logger, successMessageNoNpmI, welcomeMessage } from './utils/logger.js';
 import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
@@ -41,6 +43,10 @@ async function main(): Promise<void> {
 
     addTemplate(BASE_TEMPLATE_PATH, projectName);
     addProjectName(projectName);
+
+    // npm is stupid
+    fs.renameSync(path.join(projectName, '_vscode'), path.join(projectName, '.vscode'));
+    fs.renameSync(path.join(projectName, '_gitignore'), path.join(projectName, '.gitignore'));
 
     if (router) reactRouterInstaller(projectName);
     if (rtl) rtlInstaller(projectName, router);

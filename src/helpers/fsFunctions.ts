@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs';
+import fs from 'fs-extra';
 import { spawnSync } from 'child_process';
 
 export function addTemplate(basePath: string, finalPath: string): void {
