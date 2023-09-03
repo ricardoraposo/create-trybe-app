@@ -4,8 +4,10 @@ import { Command } from 'commander';
 import { logger, successMessageNoNpmI, welcomeMessage } from './utils/logger.js';
 import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
 import { promptGit, promptLanguage, promptNpmInstall, promptProjectName, promptSelection } from './utils/prompts.js';
-import { BASE_TEMPLATE_PATH, REACT_ROUTER_TEMPLATE_PATH, RTL_TEMPLATE_PATH } from './consts.js';
-import { addRTLDependencies } from './utils/dependencies.js';
+import { BASE_TEMPLATE_PATH, checkboxValues } from './consts.js';
+import { reactRouterInstaller } from './installers/reactRouter.js';
+import { rtlInstaller } from './installers/rtl.js';
+import { addProjectName } from './helpers/writeToPackage.js';
 
 const program = new Command().name('create-trybe-app');
 
@@ -34,16 +36,14 @@ async function main(): Promise<void> {
     if (!opts.typescript) await promptLanguage();
     const selection = await promptSelection();
 
-    const router = selection.includes('router');
-    const rtl = selection.includes('vitest');
+    const router = selection.includes(checkboxValues.router);
+    const rtl = selection.includes(checkboxValues.rtl);
 
     addTemplate(BASE_TEMPLATE_PATH, projectName);
+    addProjectName(projectName);
 
-    if (router) addTemplate(REACT_ROUTER_TEMPLATE_PATH, projectName);
-    if (rtl) {
-      addRTLDependencies(projectName);
-      addTemplate(RTL_TEMPLATE_PATH, projectName);
-    }
+    if (router) reactRouterInstaller(projectName);
+    if (rtl) rtlInstaller(projectName);
 
     if (opts.git) addGit(projectName);
     if (!opts.nogit && !opts.git) await promptGit(projectName);

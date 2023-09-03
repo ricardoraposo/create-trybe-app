@@ -1,27 +1,53 @@
-import fs from 'fs';
+import fs from 'fs-extra';
 import path from 'path';
+import sortPackageJson from 'sort-package-json';
+import { dependenciesVersionMap, scriptsMap } from '../utils/dependencies.js';
+import type { Dependency, Script } from '../utils/dependencies.js';
 
-const depRegex = /^.*dependencies.*$/m;
-const devDepRegex = /^.*devDependencies.*$/m;
-const scriptRegex = /^.*scripts.*$/m;
+export function addProjectName(projectName: string): void {
+  const pkgPath = path.join(projectName, 'package.json');
+  const pkgJson = fs.readJsonSync(pkgPath);
 
-export function addPackage(packageName: string, projectName: string): void {
-  const packagePath = path.join(projectName, 'package.json');
-  const packageFileData = fs.readFileSync(packagePath, 'utf-8');
-  const formatted = packageFileData.replace(depRegex, `\t"dependencies": {\n\t\t${packageName},`);
-  fs.writeFileSync(packagePath, formatted);
+  pkgJson.name = projectName;
+  fs.writeJsonSync(pkgPath, pkgJson, { spaces: 2 });
+}
+
+export function addDependency(opts: {
+  dependencies: Dependency[]
+  projectDir: string
+  dev: boolean
+}): void {
+  const { dependencies, projectDir, dev } = opts;
+
+  const pkgPath = path.join(projectDir, 'package.json');
+  const pkgJson = fs.readJsonSync(pkgPath);
+
+  dependencies.forEach((dep) => {
+    const version = dependenciesVersionMap[dep];
+    if (dev) {
+      pkgJson.devDependencies[dep] = version;
+    } else {
+      pkgJson.dependencies[dep] = version;
+    }
+  });
+
+  const sortedPkg = sortPackageJson(pkgJson);
+  fs.writeJsonSync(pkgPath, sortedPkg, { spaces: 2 });
 };
 
-export function addDevPackage(packageName: string, projectName: string): void {
-  const packagePath = path.join(projectName, 'package.json');
-  const packageFileData = fs.readFileSync(packagePath, 'utf-8');
-  const formatted = packageFileData.replace(devDepRegex, `\t"devDependencies": {\n\t\t${packageName},`);
-  fs.writeFileSync(packagePath, formatted);
-};
+export function addScript(opts: {
+  scripts: Script[]
+  projectDir: string
+}): void {
+  const { scripts, projectDir } = opts;
 
-export function addScript(script: string, projectName: string): void {
-  const packagePath = path.join(projectName, 'package.json');
-  const packageFileData = fs.readFileSync(packagePath, 'utf-8');
-  const formatted = packageFileData.replace(scriptRegex, `\t"scripts": {\n\t\t${script},`);
-  fs.writeFileSync(packagePath, formatted);
+  const pkgPath = path.join(projectDir, 'package.json');
+  const pkgJson = fs.readJsonSync(pkgPath);
+
+  scripts.forEach((script) => {
+    const cmd = scriptsMap[script];
+    pkgJson.scripts[script] = cmd;
+  });
+
+  fs.writeJsonSync(pkgPath, pkgJson, { spaces: 2 });
 };

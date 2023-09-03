@@ -1,6 +1,7 @@
 import { input, confirm, select, checkbox } from '@inquirer/prompts';
 import { logger } from './logger.js';
 import { addGit, runNpmInstall } from '../helpers/fsFunctions.js';
+import { checkboxValues } from '../consts.js';
 
 export async function promptProjectName(): Promise<string> {
   const projectName = await input({
@@ -61,8 +62,8 @@ export async function promptSelection(): Promise<string[]> {
   const userSelection = await checkbox({
     message: 'Quais pacotes adicionar ?',
     choices: [
-      { name: 'React Router', value: 'router' },
-      { name: 'React Testing Library', value: 'vitest' }
+      { name: 'React Router', value: checkboxValues.router },
+      { name: 'React Testing Library', value: checkboxValues.rtl }
     ]
   });
   return userSelection;
