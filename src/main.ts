@@ -9,31 +9,40 @@ import { BASE_TEMPLATE_PATH, REACT_ROUTER_TEMPLATE_PATH } from './consts.js';
 const program = new Command().name('create-trybe-app');
 
 program
-  .argument('[dir]', 'name of the project')
-  .option('--router', 'starts the project using react-router-dom', false)
-  .option('--noGit', 'starts the project without initializing git', false)
-  .option('--git', 'starts the project with git initialized', false)
-  .option('-ts,--typescript', 'starts the project using typescript', false)
+  .description(
+    'Uma CLI para criar aplicação frontend com a stack da trybe'
+  );
+
+program
+  .argument('[dir]', 'O nome da aplicação e da pasta que será criada')
+  .option('--router', 'Explicitamente diz à CLI para iniciar a aplicação utilizando o react-router', false)
+  .option('-ts,--typescript', 'Explicitamente diz à CLI que typescript será utilizado para o desenvolvimento', false)
+  .option('--git', 'Diz à CLI para iniciar a aplicação como repositório git', false)
+  .option('--nogit', 'Diz à CLI para não iniciar um repositório git', false)
   .parse(process.argv);
 
-try {
-  const userInput = program.args[0] ?? await promptProjectName();
-  const projectName = userInput.toLowerCase().replace(/[,/\\ ]/g, '');
-  createDir(projectName);
+async function main(): Promise<void> {
+  try {
+    const userInput = program.args[0] ?? await promptProjectName();
+    const projectName = userInput.toLowerCase().replace(/[,/\\ ]/g, '');
+    createDir(projectName);
 
-  const opts = program.opts();
+    const opts = program.opts();
 
-  if (!opts.typescript) await promptLanguage();
-  const router = opts.router || await promptRouter();
+    if (!opts.typescript) await promptLanguage();
+    const router = opts.router || await promptRouter();
 
-  addTemplate(BASE_TEMPLATE_PATH, projectName);
-  if (router) addTemplate(REACT_ROUTER_TEMPLATE_PATH, projectName);
+    addTemplate(BASE_TEMPLATE_PATH, projectName);
+    if (router) addTemplate(REACT_ROUTER_TEMPLATE_PATH, projectName);
 
-  if (opts.git) addGit(projectName);
-  if (!opts.noGit && !opts.git) await promptGit(projectName);
-  await promptNpmInstall(projectName);
+    if (opts.git) addGit(projectName);
+    if (!opts.nogit && !opts.git) await promptGit(projectName);
+    await promptNpmInstall(projectName);
 
-  successMessageNoNpmI(projectName);
-} catch (e) {
-  logger.error(e.message);
-}
+    successMessageNoNpmI(projectName);
+  } catch (e) {
+    logger.error(e.message);
+  }
+};
+
+main();
