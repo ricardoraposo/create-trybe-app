@@ -43,7 +43,7 @@ async function main(): Promise<void> {
     addProjectName(projectName);
 
     if (router) reactRouterInstaller(projectName);
-    if (rtl) rtlInstaller(projectName);
+    if (rtl) rtlInstaller(projectName, router);
 
     if (opts.git) addGit(projectName);
     if (!opts.nogit && !opts.git) await promptGit(projectName);

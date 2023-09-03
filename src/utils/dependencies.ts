@@ -7,7 +7,9 @@ export const dependenciesVersionMap = {
   jsdom: '^22.1.0',
   '@testing-library/jest-dom': '^6.1.2',
   '@testing-library/react': '^14.0.0',
-  '@testing-library/user-event': '^14.4.3'
+  '@testing-library/user-event': '^14.4.3',
+  '@types/jest': '^29.5.4',
+  '@vitest/coverage-v8': '^0.34.3'
 };
 
 export const scriptsMap = {

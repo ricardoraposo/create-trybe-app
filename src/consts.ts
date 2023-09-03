@@ -10,6 +10,8 @@ export const REACT_ROUTER_TEMPLATE_PATH = path.join(__dirname, '..', 'templates'
 
 export const RTL_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'rtl');
 
+export const RTLROUTER_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'rtlrouter');
+
 export enum checkboxValues {
   router = 'router',
   rtl = 'vitest',
