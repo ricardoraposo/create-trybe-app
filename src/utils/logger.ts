@@ -25,7 +25,7 @@ export function successMessageNoNpmI(projectName: string): void {
 }
 
 export function welcomeMessage(): void {
-  console.log(chalk.grey.bold('╔═════════════════════╗'));
-  console.log(chalk.greenBright.bold(chalk.grey.bold('║') + ' Create Trybe App 😆 ' + chalk.grey.bold('║')));
-  console.log(chalk.grey.bold('╚═════════════════════╝\n'));
+  console.log(chalk.grey.bold('\t╔═════════════════════╗'));
+  console.log(chalk.greenBright.bold(chalk.grey.bold('\t║') + ' Create Trybe App 😆 ' + chalk.grey.bold('║')));
+  console.log(chalk.grey.bold('\t╚═════════════════════╝\n'));
 }
