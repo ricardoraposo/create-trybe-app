@@ -11,4 +11,3 @@ it('should show "Vite + React" text', () => {
   );
   expect(screen.getByText(/vite \+ react/i)).toBeInTheDocument();
 });
-
