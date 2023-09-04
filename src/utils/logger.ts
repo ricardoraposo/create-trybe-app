@@ -15,12 +15,12 @@ export const logger = {
   }
 };
 
-export function successMessageNoNpmI(projectName: string): void {
+export function successMessage(projectName: string, npmI: boolean): void {
   console.log('');
   logger.success('Projeto criado com sucesso\n');
   logger.info('Próximos passos:');
   logger.info(`  cd ${projectName} `);
-  logger.info('  npm install');
+  if (!npmI) logger.info('  npm install');
   logger.info('  npm run dev');
 }
 

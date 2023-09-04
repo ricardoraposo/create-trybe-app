@@ -4,7 +4,7 @@ import path from 'path';
 import { Command } from 'commander';
 
 import { promptGit, promptLanguage, promptNpmInstall, promptProjectName, promptSelection } from './utils/prompts.js';
-import { logger, successMessageNoNpmI, welcomeMessage } from './utils/logger.js';
+import { logger, successMessage, welcomeMessage } from './utils/logger.js';
 import { BASE_TEMPLATE_PATH, checkboxValues } from './consts.js';
 import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
 import { reactRouterInstaller } from './installers/reactRouter.js';
@@ -53,9 +53,9 @@ async function main(): Promise<void> {
 
     if (opts.git) addGit(projectName);
     if (!opts.nogit && !opts.git) await promptGit(projectName);
-    await promptNpmInstall(projectName);
+    const npmInstall = await promptNpmInstall(projectName);
 
-    successMessageNoNpmI(projectName);
+    successMessage(projectName, npmInstall);
   } catch (e) {
     logger.error(e.message);
   }

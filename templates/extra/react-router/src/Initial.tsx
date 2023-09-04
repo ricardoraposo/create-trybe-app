@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import trybeLogo from './assets/trybe.svg';
 import reactLogo from './assets/react.svg';
-import viteLogo from '../public/vite.svg';
 
 function Initial() {
   const navigate = useNavigate();
@@ -10,13 +8,13 @@ function Initial() {
     <div>
       <div>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={ viteLogo } className="logo" alt="Vite logo" />
+          <img src="/vite.svg" className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank" rel="noreferrer">
           <img src={ reactLogo } className="logo react" alt="React logo" />
         </a>
         <a href="https://betrybe.com" target="_blank" rel="noreferrer">
-          <img src={ trybeLogo } className="logo trybe" alt="React logo" />
+          <img src="/trybe.svg" className="logo trybe" alt="React logo" />
         </a>
       </div>
       <h1>Vite + React + Trybe</h1>

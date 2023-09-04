@@ -48,7 +48,7 @@ export async function promptGit(projectName: string): Promise<void> {
   }
 };
 
-export async function promptNpmInstall(projectName: string): Promise<void> {
+export async function promptNpmInstall(projectName: string): Promise<boolean> {
   const userInput = await confirm({ message: 'Gostaria de instalar as dependências (npm install) ?' });
   if (userInput) {
     runNpmInstall(projectName);
@@ -56,6 +56,7 @@ export async function promptNpmInstall(projectName: string): Promise<void> {
   } else {
     logger.info('Tudo bem, você pode instalar mais tarde.');
   }
+  return userInput;
 };
 
 export async function promptSelection(): Promise<string[]> {
