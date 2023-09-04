@@ -31,7 +31,6 @@ async function main(): Promise<void> {
 
     const userInput = program.args[0] ?? await promptProjectName();
     const projectName = userInput.toLowerCase().replace(/[,/\\ ]/g, '');
-    createDir(projectName);
 
     const opts = program.opts();
 
@@ -41,6 +40,7 @@ async function main(): Promise<void> {
     const router = selection.includes(checkboxValues.router);
     const rtl = selection.includes(checkboxValues.rtl);
 
+    createDir(projectName);
     addTemplate(BASE_TEMPLATE_PATH, projectName);
     addProjectName(projectName);
 
