@@ -34,7 +34,7 @@ export async function promptLanguage(): Promise<void> {
   if (userInput === 'ts') {
     logger.info('Bela escolha, usaremos Typescript!!!');
   } else {
-    logger.info('Escolha errado, vamos utilizar Typescript...');
+    logger.info('Escolha errada, vamos utilizar Typescript...');
   }
 }
 
