@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import fs from 'fs';
 import path from 'path';
 import sortPackageJson from 'sort-package-json';
 import { dependenciesVersionMap, scriptsMap } from '../utils/dependencies.js';
@@ -6,10 +6,10 @@ import type { Dependency, Script } from '../utils/dependencies.js';
 
 export function addProjectName(projectName: string): void {
   const pkgPath = path.join(projectName, 'package.json');
-  const pkgJson = fs.readJsonSync(pkgPath);
+  const pkgJson = JSON.parse(fs.readFileSync(pkgPath, { encoding: 'utf-8' }));
 
   pkgJson.name = projectName;
-  fs.writeJsonSync(pkgPath, pkgJson, { spaces: 2 });
+  fs.writeFileSync(pkgPath, JSON.stringify(pkgJson));
 }
 
 export function addDependency(opts: {
@@ -20,7 +20,7 @@ export function addDependency(opts: {
   const { dependencies, projectDir, dev } = opts;
 
   const pkgPath = path.join(projectDir, 'package.json');
-  const pkgJson = fs.readJsonSync(pkgPath);
+  const pkgJson = JSON.parse(fs.readFileSync(pkgPath, { encoding: 'utf-8' }));
 
   dependencies.forEach((dep) => {
     const version = dependenciesVersionMap[dep];
@@ -31,8 +31,8 @@ export function addDependency(opts: {
     }
   });
 
-  const sortedPkg = sortPackageJson(pkgJson);
-  fs.writeJsonSync(pkgPath, sortedPkg, { spaces: 2 });
+  const sortedPkg = sortPackageJson(JSON.stringify(pkgJson, null, 2));
+  fs.writeFileSync(pkgPath, sortedPkg);
 };
 
 export function addScript(opts: {
@@ -42,12 +42,12 @@ export function addScript(opts: {
   const { scripts, projectDir } = opts;
 
   const pkgPath = path.join(projectDir, 'package.json');
-  const pkgJson = fs.readJsonSync(pkgPath);
+  const pkgJson = JSON.parse(fs.readFileSync(pkgPath, { encoding: 'utf-8' }));
 
   scripts.forEach((script) => {
     const cmd = scriptsMap[script];
     pkgJson.scripts[script] = cmd;
   });
 
-  fs.writeJsonSync(pkgPath, pkgJson, { spaces: 2 });
+  fs.writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2));
 };

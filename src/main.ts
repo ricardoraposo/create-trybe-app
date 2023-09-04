@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-
 import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
-import { logger, successMessageNoNpmI, welcomeMessage } from './utils/logger.js';
-import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
+
 import { promptGit, promptLanguage, promptNpmInstall, promptProjectName, promptSelection } from './utils/prompts.js';
+import { logger, successMessageNoNpmI, welcomeMessage } from './utils/logger.js';
 import { BASE_TEMPLATE_PATH, checkboxValues } from './consts.js';
+import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
 import { reactRouterInstaller } from './installers/reactRouter.js';
 import { rtlInstaller } from './installers/rtl.js';
 import { addProjectName } from './helpers/writeToPackage.js';
