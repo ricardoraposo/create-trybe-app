@@ -1,6 +1,6 @@
 {
   "name": "create-trybe-app",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "description": "Create package for students at Trybe",
   "author": "Ricardo Raposo",
   "repository": {
@@ -13,8 +13,7 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && node ./dist/main.js",
-    "test": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project",
-    "test:router": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project --router"
+    "test": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project"
   },
   "keywords": [
     "trybe",
