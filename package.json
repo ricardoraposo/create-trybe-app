@@ -1,6 +1,6 @@
 {
   "name": "create-trybe-app",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Create package for students at Trybe",
   "author": "Ricardo Raposo",
   "repository": {
@@ -43,6 +43,7 @@
     "@inquirer/prompts": "^3.0.4",
     "chalk": "^5.3.0",
     "commander": "^11.0.0",
+    "ora": "^7.0.1",
     "sort-package-json": "^2.5.1"
   }
 }
