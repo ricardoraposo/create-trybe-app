@@ -33,12 +33,10 @@ export function addGit(projectName: string): void {
 };
 
 export async function runNpmInstall(projectName: string): Promise<void> {
-  // const process = spawn('npm', ['install'], { cwd: projectName });
   const process = exec('npm install', { cwd: projectName });
   const spinner = ora('Instalando dependências, isso pode levar um tempinho...\n').start();
 
   await new Promise<void>((resolve, reject) => {
-    // process.stdin.end();
     const t1 = setTimeout(() => {
       spinner.start('Demora um pouco mesmo 😆');
     }, 10000);
