@@ -9,7 +9,7 @@ export function addProjectName(projectName: string): void {
   const pkgJson = JSON.parse(fs.readFileSync(pkgPath, { encoding: 'utf-8' }));
 
   pkgJson.name = projectName;
-  fs.writeFileSync(pkgPath, JSON.stringify(pkgJson));
+  fs.writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2));
 }
 
 export function addDependency(opts: {

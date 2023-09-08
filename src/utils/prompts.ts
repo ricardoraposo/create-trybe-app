@@ -64,7 +64,8 @@ export async function promptSelection(): Promise<string[]> {
     message: 'Quais pacotes adicionar ?',
     choices: [
       { name: 'React Router', value: checkboxValues.router },
-      { name: 'React Testing Library', value: checkboxValues.rtl }
+      { name: 'React Testing Library', value: checkboxValues.rtl },
+      { name: 'Styled Components', value: checkboxValues.styled }
     ]
   });
   return userSelection;

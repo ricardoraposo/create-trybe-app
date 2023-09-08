@@ -17,6 +17,12 @@ export function addTemplate(basePath: string, finalPath: string): void {
   }
 }
 
+export function removeFile(projectName: string, filePath = ''): void {
+  const splittedPath = filePath.split('/');
+  const fullFilePath = path.join(projectName, ...splittedPath);
+  fs.unlinkSync(fullFilePath);
+}
+
 export function createDir(projectName: string): void {
   fs.mkdirSync(projectName);
 }

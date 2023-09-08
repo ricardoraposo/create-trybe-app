@@ -10,6 +10,7 @@ import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
 import { reactRouterInstaller } from './installers/reactRouter.js';
 import { rtlInstaller } from './installers/rtl.js';
 import { addProjectName } from './helpers/writeToPackage.js';
+import { styledComponentsInstaller } from './installers/styled.js';
 
 const program = new Command().name('create-trybe-app');
 
@@ -39,6 +40,7 @@ async function main(): Promise<void> {
 
     const router = selection.includes(checkboxValues.router);
     const rtl = selection.includes(checkboxValues.rtl);
+    const styled = selection.includes(checkboxValues.styled);
 
     createDir(projectName);
     addTemplate(BASE_TEMPLATE_PATH, projectName);
@@ -50,6 +52,7 @@ async function main(): Promise<void> {
 
     if (router) reactRouterInstaller(projectName);
     if (rtl) rtlInstaller(projectName, router);
+    if (styled) styledComponentsInstaller(projectName, router);
 
     if (opts.git) addGit(projectName);
     if (!opts.nogit && !opts.git) await promptGit(projectName);

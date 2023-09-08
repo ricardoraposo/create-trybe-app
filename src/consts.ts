@@ -12,7 +12,12 @@ export const RTL_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra'
 
 export const RTLROUTER_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'rtlrouter');
 
+export const STYLEDBASE_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'styled-base');
+
+export const STYLEDROUTER_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'styled-router');
+
 export enum checkboxValues {
   router = 'router',
   rtl = 'vitest',
+  styled = 'styled',
 }
