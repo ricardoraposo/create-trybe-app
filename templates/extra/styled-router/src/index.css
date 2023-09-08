@@ -68,13 +68,6 @@ button:focus-visible {
   padding-top: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
