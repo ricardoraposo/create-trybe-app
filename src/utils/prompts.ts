@@ -3,7 +3,7 @@ import { logger } from './logger.js';
 import { addGit } from '../helpers/fsFunctions.js';
 import { checkboxValues } from '../consts.js';
 
-export async function promptProjectName(): Promise<string> {
+export async function promptProjectName() {
   const projectName = await input({
     message: 'Enter your project name >',
     default: 'trybe-app'
@@ -13,7 +13,7 @@ export async function promptProjectName(): Promise<string> {
   return projectName;
 }
 
-export async function promptRouter(): Promise<boolean> {
+export async function promptRouter() {
   const userInput = await confirm({ message: 'Gostaria de adicionar o react-router ?' });
   if (userInput) {
     logger.info('Muito bem, adicionando react-router!');
@@ -23,7 +23,7 @@ export async function promptRouter(): Promise<boolean> {
   return userInput;
 }
 
-export async function promptLanguage(): Promise<void> {
+export async function promptLanguage() {
   const userInput = await select({
     message: 'Qual linguagem gostaria de usar ?',
     choices: [
@@ -38,7 +38,7 @@ export async function promptLanguage(): Promise<void> {
   }
 }
 
-export async function promptGit(projectName: string): Promise<void> {
+export async function promptGit(projectName: string) {
   const userInput = await confirm({ message: 'Gostaria de iniciar um repositório git ?' });
   if (userInput) {
     addGit(projectName);
@@ -48,7 +48,7 @@ export async function promptGit(projectName: string): Promise<void> {
   }
 };
 
-export async function promptNpmInstall(): Promise<boolean> {
+export async function promptNpmInstall() {
   const userInput = await confirm({ message: 'Gostaria de instalar as dependências (npm install) ?' });
   if (userInput) {
     return userInput;
@@ -58,7 +58,7 @@ export async function promptNpmInstall(): Promise<boolean> {
   }
 };
 
-export async function promptSelection(): Promise<string[]> {
+export async function promptSelection() {
   const userSelection = await checkbox({
     message: 'Quais pacotes adicionar ?',
     choices: [

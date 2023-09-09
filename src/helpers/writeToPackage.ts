@@ -4,7 +4,13 @@ import sortPackageJson from 'sort-package-json';
 import { dependenciesVersionMap, scriptsMap } from '../utils/dependencies.js';
 import type { Dependency, Script } from '../utils/dependencies.js';
 
-export function addProjectName(projectName: string): void {
+interface Options {
+  dependencies: Dependency[]
+  projectDir: string
+  dev: boolean
+}
+
+export function addProjectName(projectName: string) {
   const pkgPath = path.join(projectName, 'package.json');
   const pkgJson = JSON.parse(fs.readFileSync(pkgPath, { encoding: 'utf-8' }));
 
@@ -12,11 +18,7 @@ export function addProjectName(projectName: string): void {
   fs.writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2));
 }
 
-export function addDependency(opts: {
-  dependencies: Dependency[]
-  projectDir: string
-  dev: boolean
-}): void {
+export function addDependency(opts: Options) {
   const { dependencies, projectDir, dev } = opts;
 
   const pkgPath = path.join(projectDir, 'package.json');
@@ -38,7 +40,7 @@ export function addDependency(opts: {
 export function addScript(opts: {
   scripts: Script[]
   projectDir: string
-}): void {
+}) {
   const { scripts, projectDir } = opts;
 
   const pkgPath = path.join(projectDir, 'package.json');

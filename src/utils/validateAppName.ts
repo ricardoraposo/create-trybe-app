@@ -1,4 +1,0 @@
-function validateAppName(input: string) {
-
-}
-

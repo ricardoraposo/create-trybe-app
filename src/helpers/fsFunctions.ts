@@ -3,7 +3,7 @@ import fs from 'fs';
 import { exec, spawnSync } from 'child_process';
 import ora from 'ora';
 
-export function addTemplate(basePath: string, finalPath: string): void {
+export function addTemplate(basePath: string, finalPath: string) {
   const templateFiles = fs.readdirSync(basePath);
   for (const file of templateFiles) {
     const sourceFilePath = path.join(basePath, file);
@@ -18,7 +18,7 @@ export function addTemplate(basePath: string, finalPath: string): void {
   }
 }
 
-export function removeFile(projectName: string, filePath = ''): void {
+export function removeFile(projectName: string, filePath = '') {
   const splittedPath = filePath.split('/');
   const fullFilePath = path.join(projectName, ...splittedPath);
   fs.unlinkSync(fullFilePath);
@@ -32,11 +32,11 @@ export function addGit(projectName: string): void {
   exec('git init', { cwd: projectName });
 };
 
-export function runInstallDebug(projectName: string, installer: string): void {
+export function runInstallDebug(projectName: string, installer: string) {
   spawnSync(installer, ['install'], { cwd: projectName, stdio: 'inherit' });
 };
 
-export async function runNpmInstall(projectName: string, installer = 'npm'): Promise<void> {
+export async function runNpmInstall(projectName: string, installer = 'npm') {
   const process = exec(`${installer} install`, { cwd: projectName });
   const spinner = ora('Instalando dependências, isso pode levar um tempinho...\n').start();
 

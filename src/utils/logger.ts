@@ -15,7 +15,7 @@ export const logger = {
   }
 };
 
-export function successMessage(projectName: string, npmI: boolean): void {
+export function successMessage(projectName: string, npmI: boolean) {
   console.log('');
   logger.success('Projeto criado com sucesso\n');
   logger.info('Próximos passos:');
@@ -24,7 +24,7 @@ export function successMessage(projectName: string, npmI: boolean): void {
   logger.info('  npm run dev');
 }
 
-export function welcomeMessage(): void {
+export function welcomeMessage() {
   console.log(chalk.grey.bold('\t╔═════════════════════╗'));
   console.log(chalk.greenBright.bold(chalk.grey.bold('\t║') + ' Create Trybe App 😆 ' + chalk.grey.bold('║')));
   console.log(chalk.grey.bold('\t╚═════════════════════╝\n'));

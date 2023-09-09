@@ -2,7 +2,7 @@ import { RTLROUTER_TEMPLATE_PATH, RTL_TEMPLATE_PATH } from '../consts.js';
 import { addTemplate } from '../helpers/fsFunctions.js';
 import { addDependency, addScript } from '../helpers/writeToPackage.js';
 
-export function rtlInstaller(projectDir: string, router: boolean): void {
+export function rtlInstaller(projectDir: string, router: boolean) {
   addTemplate(RTL_TEMPLATE_PATH, projectDir);
 
   addDependency({
