@@ -21,15 +21,15 @@ program
   );
 
 program
-  .argument('[dir]', 'O nome da aplicação e da pasta que será criada')
-  .option('-ts,--typescript', 'Explicitamente diz à CLI que typescript será utilizado para o desenvolvimento', false)
-  .option('--router', 'Explicitamente diz à CLI para adicionar react-router no projeto', false)
-  .option('--rtl', 'Explicitamente diz à CLI para adicionar a react testing library no projeto', false)
-  .option('--styled', 'Explicitamente diz à CLI para adicionar styled components no projeto', false)
-  .option('--git', 'Diz à CLI para iniciar a aplicação como repositório git', false)
-  .option('--nogit', 'Diz à CLI para não iniciar um repositório git', false)
-  .option('-i, --install <package manager>', 'Ao final do processo, instala as dependências do projeto com o gerenciador de dependências desejado', false)
-  .option('--debug', 'Debug mode', false)
+  .argument('[dir]', 'O nome da aplicação e a pasta a ser criada')
+  .option('-ts, --typescript', 'Instrui explicitamente a CLI a usar TypeScript para o desenvolvimento', false)
+  .option('--router', 'Instrui explicitamente a CLI a adicionar o React Router ao projeto', false)
+  .option('--rtl', 'Instrui explicitamente a CLI a adicionar o React Testing Library ao projeto', false)
+  .option('--styled', 'Instrui explicitamente a CLI a adicionar Styled Components ao projeto', false)
+  .option('--git', 'Instrui a CLI a inicializar a aplicação como um repositório Git', false)
+  .option('--nogit', 'Instrui a CLI a não inicializar um repositório Git', false)
+  .option('-i, --install <gerenciador de pacotes>', 'Após o processo, instala as dependências do projeto usando o gerenciador de pacotes desejado', false)
+  .option('--debug', 'Ativar modo de depuração', false)
   .parse(process.argv);
 
 async function main(): Promise<void> {

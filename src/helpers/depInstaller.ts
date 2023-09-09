@@ -13,6 +13,6 @@ export async function dependencyInstaller(projectName: string, installer: string
     runInstallDebug(projectName, cmd);
   } else {
     await runNpmInstall(projectName, cmd);
+    logger.success('\nDependências instaladas!');
   }
-  logger.success('\nDependências instaladas!');
 }
