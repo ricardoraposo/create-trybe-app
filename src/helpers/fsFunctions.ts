@@ -47,10 +47,6 @@ export async function runNpmInstall(projectName: string, installer = 'npm'): Pro
     const t4 = setTimeout(() => spinner.start('Em 3, 2, 1 e.......'), 50000);
     const t5 = setTimeout(() => spinner.start('Poooode ser que algo esteja errado...'), 65000);
 
-    process.stdout?.on('data', (data) => {
-      console.log(data);
-    });
-
     process.on('error', (e) => { reject(e); });
 
     process.on('close', () => {

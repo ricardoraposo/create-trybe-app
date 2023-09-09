@@ -21,3 +21,5 @@ export enum checkboxValues {
   rtl = 'vitest',
   styled = 'styled',
 }
+
+export const validPkgManagers = ['npm', 'yarn', 'pnpm', 'bun'];

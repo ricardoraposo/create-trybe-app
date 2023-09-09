@@ -28,7 +28,7 @@ program
   .option('--styled', 'Explicitamente diz à CLI para adicionar styled components no projeto', false)
   .option('--git', 'Diz à CLI para iniciar a aplicação como repositório git', false)
   .option('--nogit', 'Diz à CLI para não iniciar um repositório git', false)
-  .option('--bun', 'Diz à CLI para utilizar o bun pkg manager para instalar as dependências', false)
+  .option('-i, --install <package manager>', 'Diz à CLI para utilizar o bun pkg manager para instalar as dependências', false)
   .option('--debug', 'Debug mode', false)
   .parse(process.argv);
 
@@ -43,7 +43,7 @@ async function main(): Promise<void> {
 
     if (!opts.typescript) await promptLanguage();
 
-    let { router, rtl, styled } = opts;
+    let { router, rtl, styled, install, git, nogit } = opts;
 
     if (!(router || rtl || styled)) {
       const selection = await promptSelection();
@@ -64,11 +64,11 @@ async function main(): Promise<void> {
     if (rtl) rtlInstaller(projectName, router);
     if (styled) styledComponentsInstaller(projectName, router);
 
-    if (opts.git) addGit(projectName);
-    if (!opts.nogit && !opts.git) await promptGit(projectName);
+    if (git) addGit(projectName);
+    if (!nogit && !git) await promptGit(projectName);
 
-    if (opts.bun) {
-      await dependencyInstaller(projectName, 'bun', opts.debug);
+    if (install) {
+      await dependencyInstaller(projectName, install, opts.debug);
       successMessage(projectName, true);
     } else {
       const npmInstall = await promptNpmInstall();
