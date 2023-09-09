@@ -28,7 +28,7 @@ program
   .option('--styled', 'Explicitamente diz à CLI para adicionar styled components no projeto', false)
   .option('--git', 'Diz à CLI para iniciar a aplicação como repositório git', false)
   .option('--nogit', 'Diz à CLI para não iniciar um repositório git', false)
-  .option('-i, --install <package manager>', 'Diz à CLI para utilizar o bun pkg manager para instalar as dependências', false)
+  .option('-i, --install <package manager>', 'Ao final do processo, instala as dependências do projeto com o gerenciador de dependências desejado', false)
   .option('--debug', 'Debug mode', false)
   .parse(process.argv);
 
