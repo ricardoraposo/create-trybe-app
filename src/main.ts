@@ -11,6 +11,7 @@ import { reactRouterInstaller } from './installers/reactRouter.js';
 import { rtlInstaller } from './installers/rtl.js';
 import { addProjectName } from './helpers/writeToPackage.js';
 import { styledComponentsInstaller } from './installers/styled.js';
+import { dependencyInstaller } from './helpers/depInstaller.js';
 
 const program = new Command().name('create-trybe-app');
 
@@ -24,6 +25,8 @@ program
   .option('-ts,--typescript', 'Explicitamente diz à CLI que typescript será utilizado para o desenvolvimento', false)
   .option('--git', 'Diz à CLI para iniciar a aplicação como repositório git', false)
   .option('--nogit', 'Diz à CLI para não iniciar um repositório git', false)
+  .option('--bun', 'Diz à CLI para utilizar o bun pkg manager para instalar as dependências', false)
+  .option('--debug', 'Debug mode', false)
   .parse(process.argv);
 
 async function main(): Promise<void> {
@@ -56,9 +59,15 @@ async function main(): Promise<void> {
 
     if (opts.git) addGit(projectName);
     if (!opts.nogit && !opts.git) await promptGit(projectName);
-    const npmInstall = await promptNpmInstall(projectName);
 
-    successMessage(projectName, npmInstall);
+    if (opts.bun) {
+      await dependencyInstaller(projectName, 'bun', opts.debug);
+      successMessage(projectName, true);
+    } else {
+      const npmInstall = await promptNpmInstall();
+      if (npmInstall) await dependencyInstaller(projectName, 'npm', opts.debug);
+      successMessage(projectName, npmInstall);
+    }
   } catch (e) {
     logger.error(e.message);
   }

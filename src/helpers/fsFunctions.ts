@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { exec } from 'child_process';
+import { exec, spawnSync } from 'child_process';
 import ora from 'ora';
 
 export function addTemplate(basePath: string, finalPath: string): void {
@@ -32,34 +32,27 @@ export function addGit(projectName: string): void {
   exec('git init', { cwd: projectName });
 };
 
-export async function runNpmInstall(projectName: string): Promise<void> {
-  const process = exec('npm install', { cwd: projectName });
+export function runInstallDebug(projectName: string, installer: string): void {
+  spawnSync(installer, ['install'], { cwd: projectName, stdio: 'inherit' });
+};
+
+export async function runNpmInstall(projectName: string, installer = 'npm'): Promise<void> {
+  const process = exec(`${installer} install`, { cwd: projectName });
   const spinner = ora('Instalando dependências, isso pode levar um tempinho...\n').start();
 
   await new Promise<void>((resolve, reject) => {
-    const t1 = setTimeout(() => {
-      spinner.start('Demora um pouco mesmo 😆');
-    }, 10000);
+    const t1 = setTimeout(() => spinner.start('Demora um pouco mesmo 😆'), 10000);
+    const t2 = setTimeout(() => spinner.start('Ta demorando né...'), 20000);
+    const t3 = setTimeout(() => spinner.start('Quase lá, eu prometo!'), 35000);
+    const t4 = setTimeout(() => spinner.start('Em 3, 2, 1 e.......'), 50000);
+    const t5 = setTimeout(() => spinner.start('Poooode ser que algo esteja errado...'), 65000);
 
-    const t2 = setTimeout(() => {
-      spinner.start('Ta demorando né...');
-    }, 20000);
-
-    const t3 = setTimeout(() => {
-      spinner.start('Quase lá, eu prometo!');
-    }, 35000);
-
-    const t4 = setTimeout(() => {
-      spinner.start('Em 3, 2, 1 e.......');
-    }, 50000);
-
-    const t5 = setTimeout(() => {
-      spinner.start('Poooode ser que algo esteja errado...');
-    }, 65000);
-
-    process.on('error', (e) => {
-      reject(e);
+    process.stdout?.on('data', (data) => {
+      console.log(data);
     });
+
+    process.on('error', (e) => { reject(e); });
+
     process.on('close', () => {
       const timers = [t1, t2, t3, t4, t5];
       timers.forEach((t) => { clearTimeout(t); });

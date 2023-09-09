@@ -12,7 +12,12 @@ export const dependenciesVersionMap = {
   '@vitest/coverage-v8': '^0.34.3',
 
   // Styled Components
-  'styled-components': '^6.0.7'
+  'styled-components': '^6.0.7',
+
+  // Redux
+  redux: '^4.2.1',
+  'react-redux': '^8.1.2',
+  '@redux-devtools/extension': '^3.2.5'
 };
 
 export const scriptsMap = {

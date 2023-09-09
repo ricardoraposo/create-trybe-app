@@ -1,6 +1,6 @@
 import { input, confirm, select, checkbox } from '@inquirer/prompts';
 import { logger } from './logger.js';
-import { addGit, runNpmInstall } from '../helpers/fsFunctions.js';
+import { addGit } from '../helpers/fsFunctions.js';
 import { checkboxValues } from '../consts.js';
 
 export async function promptProjectName(): Promise<string> {
@@ -48,15 +48,14 @@ export async function promptGit(projectName: string): Promise<void> {
   }
 };
 
-export async function promptNpmInstall(projectName: string): Promise<boolean> {
+export async function promptNpmInstall(): Promise<boolean> {
   const userInput = await confirm({ message: 'Gostaria de instalar as dependências (npm install) ?' });
   if (userInput) {
-    await runNpmInstall(projectName);
-    logger.success('\nDependências instaladas!');
+    return userInput;
   } else {
     logger.info('Tudo bem, você pode instalar mais tarde.');
+    return userInput;
   }
-  return userInput;
 };
 
 export async function promptSelection(): Promise<string[]> {
