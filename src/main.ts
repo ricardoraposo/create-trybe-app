@@ -23,6 +23,9 @@ program
 program
   .argument('[dir]', 'O nome da aplicação e da pasta que será criada')
   .option('-ts,--typescript', 'Explicitamente diz à CLI que typescript será utilizado para o desenvolvimento', false)
+  .option('--router', 'Explicitamente diz à CLI para adicionar react-router no projeto', false)
+  .option('--rtl', 'Explicitamente diz à CLI para adicionar a react testing library no projeto', false)
+  .option('--styled', 'Explicitamente diz à CLI para adicionar styled components no projeto', false)
   .option('--git', 'Diz à CLI para iniciar a aplicação como repositório git', false)
   .option('--nogit', 'Diz à CLI para não iniciar um repositório git', false)
   .option('--bun', 'Diz à CLI para utilizar o bun pkg manager para instalar as dependências', false)
@@ -39,11 +42,15 @@ async function main(): Promise<void> {
     const opts = program.opts();
 
     if (!opts.typescript) await promptLanguage();
-    const selection = await promptSelection();
 
-    const router = selection.includes(checkboxValues.router);
-    const rtl = selection.includes(checkboxValues.rtl);
-    const styled = selection.includes(checkboxValues.styled);
+    let { router, rtl, styled } = opts;
+
+    if (!(router || rtl || styled)) {
+      const selection = await promptSelection();
+      router = selection.includes(checkboxValues.router);
+      rtl = selection.includes(checkboxValues.rtl);
+      styled = selection.includes(checkboxValues.styled);
+    }
 
     createDir(projectName);
     addTemplate(BASE_TEMPLATE_PATH, projectName);

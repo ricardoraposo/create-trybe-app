@@ -14,19 +14,9 @@ Com apenas alguns comandos simples, você estará pronto para começar a desenvo
 
 ## Primeiros Passos
 
-### Instalação
-Antes de começar a usar o Create Trybe App, você precisa garantir que tenha o Node.js e o npm instalados em seu sistema. Você pode verificar se eles estão instalados digitando:
-
-```bash
-node -v
-npm -v
-```
-
-Se não estiverem instalados, você pode baixá-los e instalá-los a partir do site oficial do Node.js em https://nodejs.org/.
-
 ### Criando o Projeto
 
-Para iniciar seu projeto Trybe, siga os passos simples abaixo:
+Para iniciar seu projeto, siga os passos abaixo:
 
 Abra seu terminal.
 
@@ -41,6 +31,13 @@ Isso iniciará o processo de criação do projeto e você será guiado por uma s
 1. Siga as instruções fornecidas pelo assistente interativo para configurar o projeto. Isso inclui a escolha das tecnologias e as configurações iniciais.
 
 1. Após concluir a configuração, seu projeto estará pronto para uso. Você pode começar a desenvolver imediatamente com as configurações recomendadas pela Trybe.
+
+Caso não queira utilizar a CLI interativa, existem flags e argumentos que podem ser passados como parâmetro ao executar a ferramenta.
+Para saber mais, execute o comando:
+
+```bash
+npm create trybe-app@latest -- --help
+```
 
 ### Recursos Adicionais
 
