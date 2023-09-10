@@ -20,6 +20,7 @@ export enum checkboxValues {
   router = 'router',
   rtl = 'vitest',
   styled = 'styled',
+  redux = 'redux',
 }
 
 export const validPkgManagers = ['npm', 'yarn', 'pnpm', 'bun'];

@@ -7,11 +7,12 @@ import { promptGit, promptLanguage, promptNpmInstall, promptProjectName, promptS
 import { logger, successMessage, welcomeMessage } from './utils/logger.js';
 import { BASE_TEMPLATE_PATH, checkboxValues } from './consts.js';
 import { addGit, addTemplate, createDir } from './helpers/fsFunctions.js';
-import { reactRouterInstaller } from './installers/reactRouter.js';
-import { rtlInstaller } from './installers/rtl.js';
-import { addProjectName } from './helpers/writeToPackage.js';
 import { styledComponentsInstaller } from './installers/styled.js';
+import { reactRouterInstaller } from './installers/reactRouter.js';
 import { dependencyInstaller } from './helpers/depInstaller.js';
+import { addProjectName } from './helpers/writeToPackage.js';
+import { rtlInstaller } from './installers/rtl.js';
+import { reduxInstaller } from './installers/redux.js';
 
 const program = new Command().name('create-trybe-app');
 
@@ -26,6 +27,7 @@ program
   .option('--router', 'Instrui explicitamente a CLI a adicionar o React Router ao projeto', false)
   .option('--rtl', 'Instrui explicitamente a CLI a adicionar o React Testing Library ao projeto', false)
   .option('--styled', 'Instrui explicitamente a CLI a adicionar Styled Components ao projeto', false)
+  .option('--redux', 'Instrui explicitamente a CLI a adicionar o Redux ao projeto', false)
   .option('--git', 'Instrui a CLI a inicializar a aplicação como um repositório Git', false)
   .option('--nogit', 'Instrui a CLI a não inicializar um repositório Git', false)
   .option('-i, --install <gerenciador de pacotes>', 'Após o processo, instala as dependências do projeto usando o gerenciador de pacotes desejado', false)
@@ -43,13 +45,14 @@ async function main(): Promise<void> {
 
     if (!opts.typescript) await promptLanguage();
 
-    let { router, rtl, styled, install, git, nogit } = opts;
+    let { router, rtl, styled, redux, install, git, nogit } = opts;
 
-    if (!(router || rtl || styled)) {
+    if (!(router || rtl || styled || redux)) {
       const selection = await promptSelection();
       router = selection.includes(checkboxValues.router);
       rtl = selection.includes(checkboxValues.rtl);
       styled = selection.includes(checkboxValues.styled);
+      redux = selection.includes(checkboxValues.redux);
     }
 
     createDir(projectName);
@@ -63,6 +66,7 @@ async function main(): Promise<void> {
     if (router) reactRouterInstaller(projectName);
     if (rtl) rtlInstaller(projectName, router);
     if (styled) styledComponentsInstaller(projectName, router);
+    if (redux) reduxInstaller(projectName);
 
     if (git) addGit(projectName);
     if (!nogit && !git) await promptGit(projectName);

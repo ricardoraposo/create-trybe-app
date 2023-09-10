@@ -64,7 +64,8 @@ export async function promptSelection() {
     choices: [
       { name: 'React Router', value: checkboxValues.router },
       { name: 'React Testing Library', value: checkboxValues.rtl },
-      { name: 'Styled Components', value: checkboxValues.styled }
+      { name: 'Styled Components', value: checkboxValues.styled },
+      { name: 'Redux (templates ainda em desenvolvimento)', value: checkboxValues.redux }
     ]
   });
   return userSelection;
