@@ -5,7 +5,8 @@ export function reduxInstaller(projectDir: string) {
     dependencies: [
       'redux',
       'react-redux',
-      '@redux-devtools/extension'
+      '@redux-devtools/extension',
+      'redux-thunk'
     ],
     projectDir,
     dev: false
