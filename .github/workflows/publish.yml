@@ -21,4 +21,5 @@ jobs:
       uses: changesets/action@v1
       with: 
         publish: npm run build
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
