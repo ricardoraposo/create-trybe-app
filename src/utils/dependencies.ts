@@ -17,8 +17,8 @@ export const dependenciesVersionMap = {
   // Redux
   redux: '^4.2.1',
   'react-redux': '^8.1.2',
-  '@redux-devtools/extension': '^3.2.5',
-  'redux-thunk': '^2.4.2'
+  'redux-thunk': '^2.4.2',
+  '@redux-devtools/extension': '^3.2.5'
 };
 
 export const scriptsMap = {
