@@ -79,7 +79,7 @@ async function main(): Promise<void> {
       if (npmInstall) await dependencyInstaller(projectName, 'npm', opts.debug);
       successMessage(projectName, npmInstall);
     }
-  } catch (e) {
+  } catch (e: any) {
     logger.error(e.message);
   }
 };
