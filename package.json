@@ -7,14 +7,6 @@
     "type": "git",
     "url": "https://github.com/ricardoraposo/create-trybe-app.git"
   },
-  "main": "./src/main.ts",
-  "bin": "./dist/main.js",
-  "type": "module",
-  "scripts": {
-    "build": "tsc",
-    "start": "tsc && node ./dist/main.js",
-    "test": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project"
-  },
   "keywords": [
     "trybe",
     "tailwind",
@@ -25,8 +17,25 @@
     "react-router",
     "typescript"
   ],
+  "bin": "./dist/main.js",
+  "exports": "./dist/main.js",
+  "files": [
+    "dist",
+    "templates",
+    "README.md",
+    "LICENSE",
+    "package.json",
+    "package-lock.json"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "start": "tsc && node ./dist/main.js",
+    "test": "rm -rf trybe-project && tsc && node ./dist/main.js trybe-project"
+  },
   "license": "MIT",
   "devDependencies": {
+    "@swc/core": "^1.3.84",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.8",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
@@ -44,6 +53,7 @@
     "chalk": "^5.3.0",
     "commander": "^11.0.0",
     "ora": "^7.0.1",
-    "sort-package-json": "^2.5.1"
+    "sort-package-json": "^2.5.1",
+    "tsup": "^7.2.0"
   }
 }
