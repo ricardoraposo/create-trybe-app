@@ -5,7 +5,6 @@ export default defineConfig({
   entry: ['src/main.ts'],
   format: ['esm'],
   minify: true,
-  target: 'es2022',
-  outDir: 'dist',
-  onSuccess: 'node dist/main.js'
+  target: 'es2020',
+  outDir: 'dist'
 });
