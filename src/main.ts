@@ -39,7 +39,7 @@ async function main(): Promise<void> {
     welcomeMessage();
 
     const userInput = program.args[0] ?? await promptProjectName();
-    const projectName = userInput.toLowerCase().replace(/[,/\\ ]/g, '');
+    const projectName = userInput.toLowerCase().replace(/\s+/g, '-').replace(/[,/\\ ]/g, '');
 
     const opts = program.opts();
 
