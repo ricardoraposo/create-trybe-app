@@ -68,7 +68,7 @@ async function main(): Promise<void> {
     if (styled) styledComponentsInstaller(projectName, router);
 
     // this needs to run last so it can override the files for the redux ones
-    if (redux) reduxInstaller(projectName, router, rtl);
+    if (redux) reduxInstaller(projectName, router, rtl, styled);
 
     if (git) addGit(projectName);
     if (!nogit && !git) await promptGit(projectName);
