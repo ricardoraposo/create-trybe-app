@@ -1,6 +1,6 @@
 {
   "name": "create-trybe-app",
-  "version": "0.4.13",
+  "version": "0.4.14",
   "description": "Create package for students at Trybe",
   "author": "Ricardo Raposo",
   "repository": {
@@ -17,7 +17,9 @@
     "react-router",
     "typescript"
   ],
-  "bin": "./dist/main.js",
+  "bin": {
+    "create-trybe-app": "./dist/main.js"
+  },
   "exports": "./dist/main.js",
   "files": [
     "dist",

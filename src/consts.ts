@@ -16,6 +16,14 @@ export const STYLEDBASE_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 
 
 export const STYLEDROUTER_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'styled-router');
 
+export const REDUXBASE_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'redux', 'base');
+
+export const REDUXRTL_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'redux', 'rtl');
+
+export const REDUXROUTER_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'redux', 'router');
+
+export const REDUXRTLROUTER_TEMPLATE_PATH = path.join(__dirname, '..', 'templates', 'extra', 'redux', 'rtlrouter');
+
 export enum checkboxValues {
   router = 'router',
   rtl = 'vitest',
