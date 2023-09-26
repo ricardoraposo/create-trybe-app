@@ -1,7 +1,7 @@
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { applyMiddleware, combineReducers, legacy_createStore } from 'redux';
 import thunk from 'redux-thunk';
-import counterReducer from './reducers/conterReducer';
+import counterReducer from './reducers/counterReducer';
 
 const reducer = combineReducers({
   counterReducer,
