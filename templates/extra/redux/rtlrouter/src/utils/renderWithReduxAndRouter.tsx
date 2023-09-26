@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { applyMiddleware, combineReducers, legacy_createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import counterReducer from '../redux/reducers/conterReducer.ts';
+import counterReducer from '../redux/reducers/counterReducer.ts';
 import { GlobalState } from '../types';
 
 function renderWithRouterAndRedux(
