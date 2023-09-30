@@ -1,4 +1,4 @@
-import { INCREMENT_COUNTER } from "../actions/counterAction";
+import { INCREMENT_COUNTER } from '../actions/counterAction';
 
 type ActionType = {
   type: string;

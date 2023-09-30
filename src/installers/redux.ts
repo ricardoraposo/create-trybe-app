@@ -22,7 +22,8 @@ export function reduxInstaller(projectDir: string, router: boolean, rtl: boolean
       'redux',
       'react-redux',
       'redux-thunk',
-      '@redux-devtools/extension'
+      '@redux-devtools/extension',
+      '@reduxjs/toolkit'
     ],
     projectDir,
     dev: false
