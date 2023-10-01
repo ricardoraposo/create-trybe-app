@@ -22,6 +22,12 @@
   animation: logo-spin 3s linear infinite;
   filter: drop-shadow(0 0 2em #78d691aa);
 }
+.fox:hover {
+  transition: 0.7s;
+  filter: drop-shadow(0 0 2em orange);
+  cursor: url("./assets/rfox.svg"), auto;
+  color: orange;
+}
 
 @keyframes logo-spin {
   from {

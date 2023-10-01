@@ -39,7 +39,12 @@ function App() {
       <p className="read-the-docs">
         npx create-trybe-app was created by
         {' '}
-        <a href="https://github.com/ricardoraposo" target="_blank" rel="noreferrer">
+        <a
+          href="https://github.com/ricardoraposo"
+          target="_blank"
+          rel="noreferrer"
+          className="fox"
+        >
           Ricardo Raposo
         </a>
       </p>
